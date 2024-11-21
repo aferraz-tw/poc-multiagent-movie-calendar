@@ -1,0 +1,29 @@
+release_search_task:
+  description: >
+    Encontrar do filme especificado especificamente no Brasil no ano de 2024.
+    Devem ser desconsiderados: datas de estreias globais e datas de estreias em festivais, 
+    datas em streamings são consideradas válidas
+    considere apenas datas que você esteja confiante, se não estiver
+    confiante da data, coloque em release_date que não foi possível encontrar uma data confiável.
+                        
+    Filme Especificado: {movie_name}
+  expected_output: >
+    Nome do filme, com dia exato estreia para grande público do fime no Brasil em 2024, se não houver
+    preencha release_date dizendo que não foi possível encontrar dado confiável.
+    um comentário com o nível de certeza da data e porquê. A data deve ser retornada no formato dd-mm-yyyy, exemplo:
+    Dia dez de Agosto de 2024, deve-se escrever 10-08-2024.
+    
+    Filme Especificado: {movie_name}
+  agent: release_search_agent
+
+pydantic_formatting_task:
+  description: >
+    A partir dos dados da tarefa opening_search_task retorna os dados do filme {movie_name}
+    seguindo o objecto pydantic MovieReleaseDate a partir do seguinte schema:
+
+    {movie_schema}
+
+  expected_output: >
+    Um objeto pydantic válido do tipo MovieReleaseDate
+  
+  agent: pydantic_formatter_agent
